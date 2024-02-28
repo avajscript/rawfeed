@@ -24,4 +24,27 @@ export class DBCommunication {
             return null;
         }
     }
+
+    static async postMealCategory(name, description, image_url) {
+        let response;
+        try {
+            const mealCategory = await fetch(process.env.REACT_APP_BASE_URL + "/mealCategories", {
+                method: "POST",
+                mode: "cors",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    name,
+                    description,
+                    image_url
+                })
+            });
+            console.log(mealCategory);
+        } catch (error) {
+            console.log("Error creating meal category");
+            console.log(error);
+            return null;
+        }
+    }
 }
