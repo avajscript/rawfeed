@@ -1,16 +1,17 @@
 import logo from './logo.svg';
 import './App.css';
 import Layout from './components/Layout';
-import {Routes} from "react-router-dom";
+import {Route, Routes} from "react-router-dom";
 import Home from './pages/Home';
-import Meals from './pages/Meals';
+import Index from './pages/meals';
 
 function App() {
     return (
         <div className="App">
             <Layout>
                 <Routes>
-                    <Route path="/" element={<Home/>}></>
+                    <Route path="/" element={<Home/>}/>
+                    <Route path="/meals" element={<Index/>}/>
                 </Routes>
             </Layout>
 
