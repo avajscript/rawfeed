@@ -28,7 +28,7 @@ export class DBCommunication {
     static async postMealCategory(name, description, image_url) {
         let response;
         try {
-            const mealCategory = await fetch(process.env.REACT_APP_BASE_URL + "/mealCategories", {
+            response = await fetch(process.env.REACT_APP_BASE_URL + "/mealCategories", {
                 method: "POST",
                 mode: "cors",
                 headers: {
@@ -40,11 +40,32 @@ export class DBCommunication {
                     image_url
                 })
             });
-            console.log(mealCategory);
+            return {response: response, status: "success", message: "None"}
         } catch (error) {
             console.log("Error creating meal category");
             console.log(error);
-            return null;
+            return {response: null, status: "error", message: error.message};
+        }
+    }
+
+    static async postMeal(meal) {
+        let response;
+        try {
+            response = await fetch(process.env.REACT_APP_BASE_URL + "/meals", {
+                method: "POST",
+                mode: "cors",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(meal)
+            });
+            return {response: response, status: "success", message: "Successfully added meal to database"}
+        } catch (error) {
+            console.log("Error creating meal");
+            console.log(error);
+            return {
+                response: null, status: "error", message: error.message
+            };
         }
     }
 }

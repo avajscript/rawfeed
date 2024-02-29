@@ -1,0 +1,32 @@
+export const MEASUREMENTS = [
+    'TSP',
+    'TBSP',
+    'FLOZ',
+    'CUP',
+    'PINT',
+    'QUART',
+    'GALLON',
+    'MIL',
+    'LITER',
+    'OZ',
+    'LB',
+    'GRAM',
+    'KG',
+    'HALF_DOZEN',
+    'DOZEN',
+];
+
+export const COMMON_CURRENCIES = [
+    {code: 'USD', name: 'United States Dollar'},
+    {code: 'EUR', name: 'Euro'},
+    {code: 'JPY', name: 'Japanese Yen'},
+    {code: 'GBP', name: 'British Pound Sterling'},
+    {code: 'CHF', name: 'Swiss Franc'},
+    {code: 'CAD', name: 'Canadian Dollar'},
+    {code: 'AUD', name: 'Australian Dollar'},
+    {code: 'CNY', name: 'Chinese Yuan'},
+    {code: 'INR', name: 'Indian Rupee'},
+    {code: 'BRL', name: 'Brazilian Real'},
+    {code: 'ZAR', name: 'South African Rand'},
+    {code: 'RUB', name: 'Russian Ruble'},
+];

@@ -2,6 +2,7 @@ import {FormControl, InputLabel, TextField, TextareaAutosize, Box, Typography, B
 import Container from "@mui/material/Container";
 import {DBCommunication} from "../../lib/DBCommunication";
 import {useState} from "react";
+import {toast} from 'react-toastify';
 
 const MealCategoryForm = () => {
     const [name, setName] = useState("");
@@ -10,7 +11,15 @@ const MealCategoryForm = () => {
 
     const onSubmit = async (event) => {
         event.preventDefault();
-        DBCommunication.postMealCategory(name, description, image_url);
+        const {response, status, message} = await DBCommunication.postMealCategory(name, description, image_url);
+        // successfully added meal
+        if (response != null) {
+            toast.success("Successfully added meal category to database");
+            // failed to add meal
+        } else {
+            toast.error("Failed to add meal category to database: " + message);
+        }
+
     }
     return (
         <Container maxWidth="sm" sx={{p: 2}}>
