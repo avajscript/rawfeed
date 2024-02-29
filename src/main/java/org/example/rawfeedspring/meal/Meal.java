@@ -15,16 +15,23 @@ import java.util.List;
 public class Meal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="meal_id")
+    @Column(name = "meal_id")
     private Long id;
+    @Column(nullable = false)
     private String name;
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "meal_id")
+    @Column(nullable = false)
     private List<Food> foods = new ArrayList<>();
+    @Column(nullable = false)
     private String description;
     private String image_url;
+    @ManyToOne
+    @JoinColumn(name = "meal_category_id")
+    private MealCategory mealCategory;
 
-    public Meal() {}
+    public Meal() {
+    }
 
     public Meal(List<Food> foods) {
 
@@ -38,6 +45,7 @@ public class Meal {
 
     /**
      * Add a new food to food list
+     *
      * @param food
      */
     public void addFood(Food food) {
@@ -46,13 +54,14 @@ public class Meal {
 
     /**
      * Remove the food given as a parameter from the food list
+     *
      * @param food
      */
     public void removeFood(Food food) {
         String foodName = food.getName();
         // iterator over every food and remove the one the user specified
         for (Food f : foods) {
-            if(f.getName().equals(foodName)) {
+            if (f.getName().equals(foodName)) {
                 foods.remove(f);
                 break;
             }
@@ -65,6 +74,7 @@ public class Meal {
 
     /**
      * Returns a string array of all foods in the meal based on the given formatter
+     *
      * @param formatter the formatter that specifies what type of format to return
      * @return
      * @throws IOException
@@ -99,7 +109,7 @@ public class Meal {
         this.name = name;
     }
 
-    public String getImage_url(){
+    public String getImage_url() {
         return image_url;
     }
 

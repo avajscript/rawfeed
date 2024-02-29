@@ -6,14 +6,22 @@ import jakarta.persistence.*;
 public class Food {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="food_id")
+    @Column(name = "food_id")
     private Long id;
+    @Column(nullable = false)
     protected String name;
+    @Column(nullable = false)
     protected double quantity;
+    @Column(nullable = false)
     protected Measurement.measurement measurement;
+    @Column(nullable = false)
     protected String currency;
+    @Column(nullable = false)
     protected double price;
-    public Food() {}
+
+    public Food() {
+    }
+
     public Food(String name, double quantity, Measurement.measurement measurement) {
         this.name = name;
         this.quantity = quantity;
@@ -21,8 +29,9 @@ public class Food {
     }
 
     @ManyToOne
-    @JoinColumn(name="meal_id")
+    @JoinColumn(name = "meal_id")
     private Meal associatedMeal;
+
     // Getters and setters
     public String getName() {
         return name;

@@ -31,3 +31,6 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Frontend UI ###
+/src/main/frontend-ui/node_modules
