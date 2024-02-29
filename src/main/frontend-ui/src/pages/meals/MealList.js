@@ -1,5 +1,6 @@
-import {List, ListItem, ListItemIcon, ListItemText} from "@mui/material";
+import {List, ListItem, ListItemIcon, ListItemText, Accordion, AccordionSummary, AccordionDetails} from "@mui/material";
 import Box from "@mui/material/Box";
+import {ExpandMore} from "@mui/icons-material";
 
 const MealList = ({meals}) => {
     return (
@@ -14,18 +15,26 @@ const MealList = ({meals}) => {
                 }
                 firstThreeFoods = firstThreeFoods.join(", ").trimEnd() + "...";
                 return (
-                    <Box key={index} boxShadow={1} mb={2} style={{cursor: 'pointer'}}>
+                    <Accordion key={index} boxShadow={1} mb={2} style={{cursor: 'pointer'}}>
+                        <AccordionSummary
+                            expandIcon={<ExpandMore/>}
+                        >
 
-                        <ListItem>
-                            <ListItemIcon>
-                                <img src={`/icons/${meal.image_url}`}/>
-                            </ListItemIcon>
-                            <ListItemText
-                                primary={meal.name}
-                                secondary={firstThreeFoods}
-                            />
-                        </ListItem>
-                    </Box>
+                            <ListItem>
+                                <ListItemIcon>
+                                    <img src={`/icons/${meal.image_url}`}/>
+                                </ListItemIcon>
+                                <ListItemText
+                                    primary={meal.name}
+                                    secondary={firstThreeFoods}
+                                />
+                            </ListItem>
+                        </AccordionSummary>
+                        <AccordionDetails>
+
+                        </AccordionDetails>
+
+                    </Accordion>
 
                 );
             })}

@@ -89,13 +89,13 @@ const MealForm = () => {
 
         if (response != null) {
             toast.success(message);
-        } else {
-            toast.error(message);
             // reset meal values and foods to empty array
             setName("");
             setDescription("");
             setImage_url("");
             setFoods([]);
+        } else {
+            toast.error(message);
         }
 
 

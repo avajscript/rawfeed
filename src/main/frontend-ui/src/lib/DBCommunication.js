@@ -1,4 +1,5 @@
 export class DBCommunication {
+    // Returns all meals from database
     static async getMeals() {
         let response;
         try {
@@ -25,6 +26,29 @@ export class DBCommunication {
         }
     }
 
+    // adds meal to the database
+    static async postMeal(meal) {
+        let response;
+        try {
+            response = await fetch(process.env.REACT_APP_BASE_URL + "/meals", {
+                method: "POST",
+                mode: "cors",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(meal)
+            });
+            return {response: response, status: "success", message: "Successfully added meal to database"}
+        } catch (error) {
+            console.log("Error creating meal");
+            console.log(error);
+            return {
+                response: null, status: "error", message: error.message
+            };
+        }
+    }
+
+    // adds meal category to the database
     static async postMealCategory(name, description, image_url) {
         let response;
         try {
@@ -48,24 +72,25 @@ export class DBCommunication {
         }
     }
 
-    static async postMeal(meal) {
+    // Returns all meal categories from the database
+    static async getMealCategories() {
         let response;
         try {
-            response = await fetch(process.env.REACT_APP_BASE_URL + "/meals", {
-                method: "POST",
+            response = await fetch(process.env.REACT_APP_BASE_URL + "/mealCategories", {
+                method: "GET",
                 mode: "cors",
                 headers: {
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify(meal)
             });
-            return {response: response, status: "success", message: "Successfully added meal to database"}
+            response = await response.json();
+            return {response: response, status: "success", message: "Successfully fetched meal categories"}
         } catch (error) {
-            console.log("Error creating meal");
+            console.log("Error fetching meal categories");
             console.log(error);
-            return {
-                response: null, status: "error", message: error.message
-            };
+            return {response: null, status: "error", message: error.message};
         }
     }
+
+
 }
