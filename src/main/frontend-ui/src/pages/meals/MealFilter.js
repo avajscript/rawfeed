@@ -1,25 +1,35 @@
-import {Typography, Box} from "@mui/material";
+import {Typography, Box, TextField, Chip, Stack, useTheme} from "@mui/material";
+import {Search} from "@mui/icons-material";
+
 
 const MealFilter = ({categories, selectedCategory, selectCategory}) => {
+    const theme = useTheme();
     return (
-        <Box sx={{display: "flex", flexWrap: "wrap", justifyContent: "flex-start"}}>
+        <Box sx={{display: "flex", flexDirection: "column", mb: 2}}>
+            <Box sx={{display: 'flex', alignItems: "center", mb: 2}}>
+                <TextField variant="outlined" size="small" sx={{mr: 1}} placeholder="Search..."/>
+                <Search fontSize={'medium'}/>
+            </Box>
 
-            {categories.map((category, index) => {
-                return (
-                    <Box boxShadow={1} mb={1} px={2} py={1} mr={2} onClick={() => selectCategory(category)}
-                         sx={{
-                             backgroundColor: selectedCategory === category ? 'primary.main' : 'white',
-                             color: selectedCategory === category ? 'white' : 'primary.main',
-                             cursor: 'pointer', transition: ".25s background-color ease", '&:hover':
-                                 {backgroundColor: 'primary.main', color: 'tertiary.main'}
-                         }}>
-                        <Typography variant="body1">
-                            {category.name}
-                        </Typography>
-                    </Box>
-                )
+            <Stack direction="row" spacing={1} flexWrap="wrap">
+                {categories.map((category, index) => {
+                    return (
+                        <Chip label={category.name} variant='outlined'
 
-            })}
+                              onClick={() => selectCategory(category)}
+                              sx={{
+                                  marginBottom: '8px !important',
+                                  backgroundColor: selectedCategory === category ? 'primary.main' : 'white',
+                                  color: selectedCategory === category ? 'white' : 'primary.main',
+                              }}/>
+
+                    )
+
+
+                })}
+            </Stack>
+
+
         </Box>
     )
 };
