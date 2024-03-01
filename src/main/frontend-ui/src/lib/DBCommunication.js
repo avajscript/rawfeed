@@ -49,7 +49,7 @@ export class DBCommunication {
     }
 
     // adds meal category to the database
-    static async postMealCategory(name, description, image_url) {
+    static async postMealCategory(name, description, image_url, parent_category) {
         let response;
         try {
             response = await fetch(process.env.REACT_APP_BASE_URL + "/mealCategories", {
@@ -61,7 +61,8 @@ export class DBCommunication {
                 body: JSON.stringify({
                     name,
                     description,
-                    image_url
+                    image_url,
+                    parent_category
                 })
             });
             return {response: response, status: "success", message: "None"}

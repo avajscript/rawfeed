@@ -27,6 +27,12 @@ const Index = () => {
 
     }, []);
 
+    console.log("meals");
+    console.log(meals);
+
+    console.log("categories");
+    console.log(mealCategories);
+
     // Set to null if selected same category or set to new category
     const selectCategory = (category) => {
         if (selectCategory === category) {

@@ -39,7 +39,21 @@ const MealForm = () => {
         currency: "",
         price: "",
     });
+    // list of categories from the data
+    const [categories, setCategories] = useState([]);
+    const [category, setCategory] = useState(null);
 
+    useEffect(() => {
+        const fetchMealCategories = async () => {
+            const {response, status, message} = await DBCommunication.getMealCategories();
+            if (response != null) {
+                setCategories(response);
+            } else {
+                toast.error("Error fetching categories: " + message);
+            }
+        }
+        fetchMealCategories();
+    }, []);
     // used to update values in food state from form
     const updateFood = (key, value) => {
         setFood(prev => {
@@ -71,10 +85,14 @@ const MealForm = () => {
             currency: "",
             price: "",
         });
-
-
     }
 
+    // Update the category state based on the category name provided when
+    // selecting a category from the dropdown
+    const updateCategory = (categoryName) => {
+        const newCategory = categories.find(category => category.name === categoryName);
+        setCategory(newCategory);
+    }
     // submit the form and add the meal to the database
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -83,7 +101,8 @@ const MealForm = () => {
             name: name,
             description: description,
             image_url: image_url,
-            foods: foods
+            foods: foods,
+            mealCategory: category
         };
         const {response, status, message} = await DBCommunication.postMeal(meal);
 
@@ -118,6 +137,12 @@ const MealForm = () => {
                                    value={description} onChange={e => setDescription(e.target.value)} sx={{mb: 2}}/>
                         <TextField label="Image url" id='image_url' variant='outlined'
                                    value={image_url} onChange={e => setImage_url(e.target.value)} sx={{mb: 2}}/>
+
+                        <Autocomplete disablePortal options={categories.map(category => category.name)} id="category"
+                                      value={category?.name}
+                                      renderInput={(params) => <TextField {...params} label="Category"/>}
+                                      sx={{mb: 2}} onChange={(e, value) => updateCategory(value)}
+                        />
                         {/** End of meal form **/}
                         <Divider sx={{mb: 2}}/>
 
